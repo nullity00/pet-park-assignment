@@ -22,17 +22,17 @@ contract PetPark {
   event Borrowed(AnimalType animalType);
   event Returned(AnimalType animalType);
 
-  modifier onlyOwner() {
-    require(msg.sender == owner, "Only the owner can call this function");
-    _;
-  }
-
   mapping (AnimalType => uint) public animalCounts;
   mapping (address => BorrowDetails) public borrowed;
   mapping (AnimalType => uint) public borrowCounts;
 
   constructor() {
     owner = msg.sender;
+  }
+
+  modifier onlyOwner() {
+    require(msg.sender == owner, "Only the owner can call this function");
+    _;
   }
 
   function add(AnimalType animalType, uint count) public onlyOwner {
